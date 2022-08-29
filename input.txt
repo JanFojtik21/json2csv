@@ -1,0 +1,10 @@
+# Tady otevres vstupni soubor, a nactes jednotlive radky do 'lines'
+with open('data_lukas.json') as file:
+    lines = file.readlines()
+
+# Tady kazdou radku zvlast nactu jako JSON (tim se to prevede do pythoniho dictu), a ulozim do listu 'data'
+data = [json.loads(line) for line in lines]
+# Pandas to umi nacist tak, ze ty nested struktury oddeli pomoci '_', pripadne cehokoliv jineho - to si zvolis v parametru 'sep'
+df = pd.json_normalize(data, sep='_')
+# Tady jen export do csv
+df.to_csv('export_final.csv', index=False, sep=';')
